@@ -1,0 +1,19 @@
+{
+    "name": "maerlyn/tibiacom-parser",
+    "description": "Parser for tibia.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gábor Fási",
+            "email": "m@maerlyn.eu"
+        }
+    ],
+    "require": {
+        "guzzle/guzzle": "2.6.6"
+    },
+    "autoload": {
+        "psr-0": {
+          "Maerlyn": "src/"
+        }
+    }
+}
