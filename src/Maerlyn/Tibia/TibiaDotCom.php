@@ -12,6 +12,41 @@ use Guzzle\Http\Client;
 class TibiaDotCom
 {
     /**
+     * Gets the list of the character's deaths
+     *
+     * @param string $name the character name
+     * @return array the deaths
+     */
+    public function characterDeaths($name)
+    {
+        $html = $this->postUrl("http://www.tibia.com/community/?subtopic=characters", array("name" => $name));
+
+        if (false !== stripos($html, "<b>Could not find character</b>")) {
+            return false;
+        }
+
+        $domd = $this->getDOMDocument($html);
+        $domx = new \DOMXPath($domd);
+        $rows = $domx->query("//b[text() = 'Character Deaths']/ancestor::table[1]//tr[position() > 1]");
+        $deaths = array();
+
+        foreach ($rows as $row) {
+            $date = $row->firstChild->nodeValue;
+            $text = $row->lastChild->nodeValue;
+
+            preg_match("/Died at Level (\\d+) by (.+)\\./", $text, $matches);
+
+            $deaths[] = array(
+                "date"      =>  \DateTime::createFromFormat("M d Y, H:i:s T", $date),
+                "level"     =>  $matches[1],
+                "reason"    =>  $matches[2],
+            );
+        }
+
+        return $deaths;
+    }
+
+    /**
      * Gets information about the given character
      *
      * @param string $name

@@ -65,6 +65,22 @@ a numeric array with all characters, where each item is an array with the follow
  - level
  - vocation
 
+## Getting the character's deaths
+
+    $tibiadotcom->characterDeaths($name)
+
+**Parameters**:
+
+ - `$name`: the name of the character
+
+** Return value**:
+
+an array of arrays, each inner array is a death with the following keys:
+
+ - date (a `\DateTime` instance)
+ - level
+ - reason
+
 # License
 
 The code is released under the MIT license.
