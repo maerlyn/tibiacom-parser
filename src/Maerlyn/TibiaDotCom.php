@@ -50,7 +50,14 @@ class TibiaDotCom
     private function getDOMDocument($html)
     {
         $domd = new \DOMDocument("1.0", "utf-8");
-        $html = mb_convert_encoding($html, "utf-8", mb_detect_encoding($html));
+
+        $replace = array(
+            "&#160;"    =>  " ", // non-breaking space in the page's code
+            chr(160)    =>  " ", // non-breaking space in character comments
+        );
+        $html = str_replace(array_keys($replace), array_values($replace), $html);
+
+        $html = mb_convert_encoding($html, "utf-8", "iso-8859-1");
 
         libxml_use_internal_errors(true);
         $domd->loadHTML($html);
