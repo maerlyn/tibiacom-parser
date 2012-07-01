@@ -1,6 +1,6 @@
 <?php
 
-namespace Maerlyn;
+namespace Maerlyn\Tibia;
 
 use Guzzle\Http\Client;
 
