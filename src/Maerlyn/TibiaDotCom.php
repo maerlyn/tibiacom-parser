@@ -85,4 +85,14 @@ class TibiaDotCom
 
         return $response->getBody(/* $asString = */ true);
     }
+
+    private function postUrl($url, array $parameters)
+    {
+        $client = new Client();
+        $request = $client->post($url);
+        $request->setBody($parameters);
+        $response = $request->send();
+
+        return $response->getBody();
+    }
 }
