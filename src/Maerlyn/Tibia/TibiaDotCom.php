@@ -3,6 +3,7 @@
 namespace Maerlyn\Tibia;
 
 use Guzzle\Http\Client;
+use Maerlyn\Tibia\CharacterNotFoundException;
 
 /**
  * Parser functions to Tibia's official site, tibia.com
@@ -16,13 +17,14 @@ class TibiaDotCom
      *
      * @param string $name the character name
      * @return array the deaths
+     * @throws CharacterNotFoundException if the character does not exist
      */
     public function characterDeaths($name)
     {
         $html = $this->postUrl("http://www.tibia.com/community/?subtopic=characters", array("name" => $name));
 
         if (false !== stripos($html, "<b>Could not find character</b>")) {
-            return false;
+            throw new CharacterNotFoundException($name);
         }
 
         $domd = $this->getDOMDocument($html);
@@ -50,13 +52,15 @@ class TibiaDotCom
      * Gets information about the given character
      *
      * @param string $name
+     * @return array character data
+     * @throws CharacterNotFoundException if the character does not exist
      */
     public function characterInfo($name)
     {
         $html = $this->postUrl("http://www.tibia.com/community/?subtopic=characters", array("name" => $name));
 
         if (false !== stripos($html, "<b>Could not find character</b>")) {
-            return false;
+            throw new CharacterNotFoundException($name);
         }
 
         // this will be used later while we go through all the rows in the charinfo table

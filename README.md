@@ -49,6 +49,10 @@ values not stated otherwise are strings.
  - last_login (a `\DateTime` object)
  - account_status
 
+**Exceptions**:
+
+throws `Maerlyn\Tibia\CharacterNotFoundException` if the character does not exist.
+
 ## Getting the list of online characters on a server
 
     $tibiadotcom->whoIsOnline($world)
@@ -80,6 +84,10 @@ an array of arrays, each inner array is a death with the following keys:
  - date (a `\DateTime` instance)
  - level
  - reason
+
+**Exceptions**:
+
+throws `Maerlyn\Tibia\CharacterNotFoundException` if the character does not exist.
 
 # License
 
