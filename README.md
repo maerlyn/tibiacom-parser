@@ -28,7 +28,7 @@ The only dependency is [Guzzle].
 
     $tibiadotcom->characterInfo($name);
 
-*Parameters**:
+**Parameters**:
 
  - `$name`: the name of the character
 
